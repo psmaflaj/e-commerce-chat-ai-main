@@ -1,0 +1,7 @@
+[tool.coverage.run]
+source = ["src/application", "src/domain"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true

@@ -1,0 +1,18 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ecommerce-api
+    env_file: .env
+    environment:
+      # RUTA ABSOLUTA a la BD SQLite dentro del contenedor (¡4 barras!)
+      DATABASE_URL: "sqlite:////app/data/ecommerce_chat.db"
+      # GEMINI_API_KEY se inyecta desde .env
+    volumes:
+      - .:/app               # hot reload de código en dev
+      - ./data:/app/data     # persistencia de la BD en el host
+    ports:
+      - "8000:8000"
+    command: uvicorn src.infrastructure.api.main:app --host 0.0.0.0 --port 8000 --reload
+    restart: unless-stopped
